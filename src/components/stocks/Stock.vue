@@ -3,8 +3,8 @@
     <div class="card">
       <div class="card-header">
         <h4 class="card-title">
-          NAME
-          <small>(price: PRICE)</small>
+          {{stock.name}}
+          <small>(price: {{stock.price}})</small>
         </h4>
       </div>
       <div class="card-body">
@@ -13,10 +13,15 @@
             type="number"
             class="form-control"
             placeholder="Quantity"
+            v-model="quantity"
             >
         </div>
         <div class="float-right">
-          <button class="btn btn-success">
+          <button
+            class="btn btn-success"
+            @click="buyStock"
+            :disabled="isDisabled"
+            >
             Buy
           </button>
         </div>
@@ -27,7 +32,29 @@
 
 <script>
     export default {
-        name: "Stock"
+      name: "Stock",
+      props: ['stock'],
+      data() {
+        return {
+          quantity: 0
+        }
+      },
+      computed: {
+          isDisabled: function() {
+            return this.quantity <= 0 || !Number.isInteger(+this.quantity)
+          }
+      },
+      methods: {
+        buyStock(){
+            const order = {
+              stockId: this.stock.id,
+              stockPrice: this.stock.price,
+              quantity: this.quantity
+            };
+            console.log(order);
+            this.quantity = 0;
+        }
+      }
     }
 </script>
 
