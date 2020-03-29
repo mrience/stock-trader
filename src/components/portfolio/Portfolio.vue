@@ -1,13 +1,5 @@
 <template>
-    <h1>Portfolio Component</h1>
+  <div>
+
+  </div>
 </template>
-
-<script>
-    export default {
-        name: "portfolio"
-    }
-</script>
-
-<style scoped>
-
-</style>
