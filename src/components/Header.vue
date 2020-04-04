@@ -7,6 +7,7 @@
         <router-link class="nav-item" to="/portfolio" active-class="active" tag="li"><a class="nav-link">Portfolio</a></router-link>
         <router-link class="nav-item" to="/Stocks" active-class="active" tag="li"><a class="nav-link">Stocks</a></router-link>
       </ul>
+      <strong class="navbar-text navbar-right">Funds: {{funds}}</strong>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#" class="nav-link">End Day</a></li>
         <li class="dropdown">
@@ -30,7 +31,12 @@
 
 <script>
     export default {
-        name: "Header"
+      name: "Header",
+      computed: {
+        funds() {
+          return this.$store.getters.funds
+        }
+      }
     }
 </script>
 
