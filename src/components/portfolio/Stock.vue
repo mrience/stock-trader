@@ -49,7 +49,7 @@
     methods: {
       ...mapActions([
         'sellStock'
-      ])
+      ]),
       sellStock() {
         const order = {
           stockId: this.stock.id,
