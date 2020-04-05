@@ -10,7 +10,11 @@
       <strong class="navbar-text navbar-right">Funds: {{funds | currency}}</strong>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#" class="nav-link" @click="endDay">End Day</a></li>
-        <li class="dropdown">
+        <li
+          class="dropdown"
+          :class="{open: isDropdownOpen}"
+          @click="openDropdown"
+        >
           <a
             href="#"
             class="dropdown-toggle nav-link"
@@ -20,8 +24,8 @@
             aria-expanded="false">Save & Load <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
-            <li><a href="#">Save Data</a></li>
-            <li><a href="#">Load Data</a></li>
+            <li><a class="dropdown-item" href="#">Save Data</a></li>
+            <li><a class="dropdown-item" href="#">Load Data</a></li>
           </ul>
         </li>
       </ul>
@@ -33,6 +37,11 @@
   import {mapActions} from 'vuex'
 
     export default {
+    data() {
+      return {
+        isDropdownOpen: false
+      }
+    },
       name: "Header",
       computed: {
         funds() {
@@ -45,6 +54,9 @@
         ]),
         endDay() {
           this.randomizeStocks();
+        },
+        openDropdown() {
+          return !this.isDropdownOpen;
         }
       }
     }
