@@ -10,24 +10,26 @@
       <strong class="navbar-text navbar-right">Funds: {{funds | currency}}</strong>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#" class="nav-link" @click="endDay">End Day</a></li>
-        <li
-          class="dropdown"
-          :class="{open: isDropdownOpen}"
-          @click="openDropdown"
-        >
-          <a
-            href="#"
-            class="dropdown-toggle nav-link"
-            data-toggle="dropdown"
-            role="button"
-            aria-haspopup="true"
-            aria-expanded="false">Save & Load <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Save Data</a></li>
-            <li><a class="dropdown-item" href="#">Load Data</a></li>
-          </ul>
-        </li>
+                    <li><a class="dropdown-item nav-link" href="#" @click="saveData">Save Data</a></li>
+                    <li><a class="dropdown-item nav-link" href="#" @click="loadData">Load Data</a></li>
+<!--        <li-->
+<!--          class="dropdown"-->
+<!--          :class="{show: isDropdownOpen}"-->
+<!--          @click="openDropdown"-->
+<!--        >-->
+<!--          <a-->
+<!--            href="#"-->
+<!--            class="dropdown-toggle nav-link"-->
+<!--            data-toggle="dropdown"-->
+<!--            role="button"-->
+<!--            aria-haspopup="true"-->
+<!--            aria-expanded="false">Save & Load <span class="caret"></span>-->
+<!--          </a>-->
+<!--          <ul class="dropdown-menu">-->
+<!--            <li><a class="dropdown-item" href="#" @click="saveData">Save Data</a></li>-->
+<!--            <li><a class="dropdown-item" href="#">Load Data</a></li>-->
+<!--          </ul>-->
+<!--        </li>-->
       </ul>
     </div>
   </nav>
@@ -49,14 +51,27 @@
         }
       },
       methods: {
-        ...mapActions([
-          'randomizeStocks'
-        ]),
+        ...mapActions({
+          randomizeStocks: 'randomizeStocks',
+          fetchData: 'loadData'
+        }),
         endDay() {
           this.randomizeStocks();
         },
         openDropdown() {
-          return !this.isDropdownOpen;
+          console.log('try to open dropdown ' + this.isDropdownOpen)
+          this.isDropdownOpen = !this.isDropdownOpen;
+        },
+        saveData() {
+          const data = {
+            founds: this.$store.getters.funds,
+            stockPortfolio: this.$store.getters.stockPortfolio,
+            stocks: this.$store.getters.stocks
+          };
+          this.$http.put('data.json', data);
+        },
+        loadData() {
+          this.fetchData();
         }
       }
     }

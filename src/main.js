@@ -8,9 +8,11 @@ import VueResource from 'vue-resource';
 Vue.use(VueRouter);
 Vue.use(VueResource);
 
+Vue.http.options.root = 'https://vuejs-stock-trader-c53ec.firebaseio.com/stock-trader/rOmZDFOnzKYMu3DMBXZZ';
+
 Vue.filter('currency', (value) => {
   return '$' + value.toLocaleString();
-})
+});
 
 const router = new VueRouter({
   mode: 'history',
@@ -22,4 +24,4 @@ new Vue({
   router,
   store,
   render: h => h(App)
-})
+});
